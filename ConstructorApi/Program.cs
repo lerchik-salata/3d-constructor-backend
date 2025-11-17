@@ -12,7 +12,7 @@ using ConstructorApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
-var env = builder.Environment;
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
@@ -40,11 +40,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-var jwtKey = configuration["Jwt:Key"];
-if (string.IsNullOrEmpty(jwtKey))
-{
-    jwtKey = "YourSuperSecretKeyMustBeAtLeast32CharactersLongToPassSecurityCheck12345";
-}
+var jwtKey = builder.Configuration["JWT_KEY"];
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 
 builder.Services.AddAuthentication(options =>
@@ -76,8 +72,10 @@ builder.Services.AddScoped<ISceneService, SceneService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IGoogleDriveService, GoogleDriveService>();
+builder.Services.AddScoped<ITextureService, TextureService>();
+builder.Services.AddScoped<ITextureRepository, TextureRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -135,8 +133,8 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-    var adminEmail = configuration["AdminUser:Email"];
-    var adminPassword = configuration["AdminUser:Password"];
+    var adminEmail = builder.Configuration["ADMIN_EMAIL"];
+    var adminPassword = builder.Configuration["ADMIN_PASSWORD"];
     if (!string.IsNullOrWhiteSpace(adminEmail) && !string.IsNullOrWhiteSpace(adminPassword))
     {
         var admin = userManager.FindByEmailAsync(adminEmail).GetAwaiter().GetResult();

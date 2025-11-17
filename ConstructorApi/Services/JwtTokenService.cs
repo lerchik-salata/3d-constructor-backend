@@ -30,10 +30,10 @@ namespace ConstructorApi.Services
 
             claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT_KEY"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var expiresDays = int.TryParse(_config["Jwt:ExpireDays"], out var d) ? d : 7;
+            var expiresDays = int.TryParse(_config["JWT_EXPIRE_DAYS"], out var d) ? d : 7;
 
             var token = new JwtSecurityToken(
                 claims: claims,

@@ -43,6 +43,7 @@ namespace ConstructorApi.DTOs.Scene
         public float ScaleZ { get; set; }
 
         public string? Color { get; set; }
+        public string? TextureId { get; set; }
     }
 
     public class SceneObjectDto
@@ -63,5 +64,6 @@ namespace ConstructorApi.DTOs.Scene
         public float ScaleZ { get; set; }
 
         public string? Color { get; set; }
+        public string? TextureId { get; set; }
     }
 }

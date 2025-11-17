@@ -49,11 +49,15 @@ namespace ConstructorApi.Controllers
             var user = await _authService.GetCurrentUserAsync(User);
             if (user == null) return NotFound();
 
+               var roleClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+               var role = roleClaim?.Value ?? "User";
+
             return Ok(new 
             {
                 user.Id,
                 user.UserName,
-                user.Email
+                user.Email,
+                Role = role
             });
         }
 

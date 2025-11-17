@@ -20,10 +20,12 @@ namespace ConstructorApi.Models
         public float ScaleZ { get; set; }
         
         public string? Color { get; set; } 
+        public int? TextureId { get; set; }
         
         public int SceneId { get; set; }
         
         [JsonIgnore] 
         public Scene? Scene { get; set; } 
+        public Texture? Texture { get; set; } 
     }
 }

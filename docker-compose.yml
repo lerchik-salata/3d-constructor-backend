@@ -6,6 +6,8 @@ services:
       context: ./ConstructorApi
       dockerfile: Dockerfile
     container_name: constructor_api_app
+    env_file:
+      - .env
     ports:
       - "8080:8080"
     environment:

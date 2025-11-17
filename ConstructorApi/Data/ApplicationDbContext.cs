@@ -14,6 +14,7 @@ namespace ConstructorApi.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectSetting> ProjectSettings { get; set; }
         public DbSet<Scene> Scenes { get; set; }
+        public DbSet<Texture> Textures { get; set; }
         public DbSet<SceneObject> SceneObjects { get; set; }
         public DbSet<ApplicationUser> Users { get; set; } 
 
@@ -30,6 +31,12 @@ namespace ConstructorApi.Data
                 .HasOne(so => so.Scene)
                 .WithMany(s => s.Objects)
                 .HasForeignKey(so => so.SceneId);
+
+            modelBuilder.Entity<SceneObject>()
+                .HasOne(o => o.Texture)
+                .WithMany(t => t.SceneObjects)
+                .HasForeignKey(o => o.TextureId);
+
         }
     }
 }
