@@ -1,21 +1,14 @@
 using ConstructorApi.Data;
 using ConstructorApi.Models;
+using ConstructorApi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConstructorApi.Repositories
 {
-    public class SceneRepository : ISceneRepository
+    public class SceneRepository : Repository<Scene>, ISceneRepository
     {
-        private readonly ApplicationDbContext _context;
-
-        public SceneRepository(ApplicationDbContext context)
+        public SceneRepository(ApplicationDbContext context) : base(context)
         {
-            _context = context;
-        }
-        
-        public async Task<bool> ProjectExistsAsync(int projectId)
-        {
-            return await _context.Projects.AnyAsync(p => p.Id == projectId);
         }
 
         public async Task<IEnumerable<Scene>> GetScenesByProjectIdAsync(int projectId)
@@ -33,34 +26,11 @@ namespace ConstructorApi.Repositories
                 .Include(s => s.Objects) 
                 .FirstOrDefaultAsync();
         }
-
-        public async Task<Scene> AddSceneAsync(Scene scene)
-        {
-            _context.Scenes.Add(scene);
-            await _context.SaveChangesAsync();
-            return scene;
-        }
-
-        public async Task<Scene> UpdateSceneAsync(Scene scene)
-        {
-            await _context.SaveChangesAsync();
-            return scene;
-        }
-
-        public async Task DeleteSceneAsync(Scene scene)
-        {
-            _context.Scenes.Remove(scene);
-            await _context.SaveChangesAsync();
-        }
     }
 
-    public interface ISceneRepository
+    public interface ISceneRepository : IRepository<Scene>
     {
         Task<Scene?> GetSceneWithObjectsAsync(int projectId, int sceneId);
         Task<IEnumerable<Scene>> GetScenesByProjectIdAsync(int projectId);
-        Task<Scene> AddSceneAsync(Scene scene);
-        Task<Scene> UpdateSceneAsync(Scene scene);
-        Task DeleteSceneAsync(Scene scene);
-        Task<bool> ProjectExistsAsync(int projectId);
     }
 }

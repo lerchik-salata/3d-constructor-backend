@@ -48,7 +48,7 @@ namespace ConstructorApi.Services
                 }
             }
             
-            return await _sceneRepository.AddSceneAsync(newScene);
+            return await _sceneRepository.AddAsync(newScene);
         }
 
         public async Task<Scene?> UpdateSceneAsync(int projectId, int sceneId, Scene updatedScene)
@@ -77,7 +77,7 @@ namespace ConstructorApi.Services
                 }
             }
 
-            return await _sceneRepository.UpdateSceneAsync(existingScene);
+            return await _sceneRepository.UpdateAsync(existingScene);
         }
 
         public async Task<bool> DeleteSceneAsync(int projectId, int sceneId)
@@ -89,7 +89,7 @@ namespace ConstructorApi.Services
                 return false;
             }
 
-            await _sceneRepository.DeleteSceneAsync(scene);
+            await _sceneRepository.DeleteAsync(sceneId);
             return true;
         }
     }

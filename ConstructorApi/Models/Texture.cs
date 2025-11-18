@@ -3,10 +3,8 @@ using System.Text.Json.Serialization;
 
 namespace ConstructorApi.Models
 {
-    public class Texture
+    public class Texture : BaseEntity
     {
-        public int Id { get; set; }
-        
         public string Name { get; set; } = string.Empty;
         
         public string ImageUrl { get; set; } = string.Empty;

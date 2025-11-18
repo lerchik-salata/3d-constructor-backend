@@ -4,9 +4,8 @@ using System.Text.Json.Serialization;
 
 namespace ConstructorApi.Models
 {
-    public class Scene
+    public class Scene : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; } = "Untitled Scene"; 
         
         public ICollection<SceneObject> Objects { get; set; } = new List<SceneObject>();

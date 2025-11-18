@@ -1,11 +1,10 @@
-using System; // Потрібен для DateTime
+using System; 
 using System.Collections.Generic;
 
 namespace ConstructorApi.Models
 {
-    public class Project
+    public class Project : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; } = "Untitled Project"; 
         public string? Description { get; set; } = "No description provided.";
         

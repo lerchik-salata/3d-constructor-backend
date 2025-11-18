@@ -2,9 +2,8 @@ using System.Text.Json.Serialization;
 
 namespace ConstructorApi.Models
 {
-    public class SceneObject
+    public class SceneObject : BaseEntity
     {
-        public int Id { get; set; }
         public string? Type { get; set; }
         
         public float PositionX { get; set; }
