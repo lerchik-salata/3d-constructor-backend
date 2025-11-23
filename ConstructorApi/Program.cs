@@ -73,7 +73,12 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
-builder.Services.AddScoped<IGoogleDriveService, GoogleDriveService>();
+builder.Services.AddScoped<GoogleDriveService>();
+builder.Services.AddScoped<IGoogleDriveService>(sp =>
+{
+    var realService = sp.GetRequiredService<GoogleDriveService>();
+    return new GoogleDriveProxyService(realService);
+});
 builder.Services.AddScoped<ITextureService, TextureService>();
 builder.Services.AddScoped<ITextureRepository, TextureRepository>();
 
