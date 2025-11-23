@@ -48,6 +48,15 @@ namespace ConstructorApi.Services
                 ?? throw new Exception("GoogleDrive:FolderId is missing in configuration");
         }
 
+        public async Task<Stream> DownloadFileStreamAsync(string fileId)
+            {
+                var url = $"https://drive.google.com/uc?export=download&id={fileId}";
+                var client = new HttpClient();
+                var response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadAsStreamAsync();
+            }
+
         public async Task<string> UploadFileAsync(IFormFile file)
         {
              var fileMeta = new Google.Apis.Drive.v3.Data.File
@@ -97,5 +106,6 @@ namespace ConstructorApi.Services
     public interface IGoogleDriveService
     {
         Task<string> UploadFileAsync(IFormFile file);
+        Task<Stream> DownloadFileStreamAsync(string fileId);
     }
 }
