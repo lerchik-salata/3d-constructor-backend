@@ -7,10 +7,17 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Project, ProjectDto>();
-        CreateMap<ProjectCreateDto, Project>();
-        CreateMap<ProjectUpdateDto, Project>();
-        CreateMap<ProjectSetting, ProjectSettingDto>();
+        CreateMap<Project, ProjectDto>()
+            .ForMember(dest => dest.Settings, opt => opt.MapFrom(src => src.Settings))
+            .ForMember(dest => dest.Scenes, opt => opt.MapFrom(src => src.Scenes));
+
+        CreateMap<ProjectCreateDto, Project>()
+            .ForMember(dest => dest.Settings, opt => opt.MapFrom(src => src.Settings));
+
+        CreateMap<ProjectUpdateDto, Project>()
+            .ForMember(dest => dest.Settings, opt => opt.MapFrom(src => src.Settings));
+
+        CreateMap<ProjectSetting, ProjectSettingDto>().ReverseMap();
 
         CreateMap<Scene, SceneDto>();
         CreateMap<SceneCreateDto, Scene>();

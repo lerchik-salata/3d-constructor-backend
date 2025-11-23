@@ -59,6 +59,9 @@ public class ProjectsController : ControllerBase
         var project = _mapper.Map<Project>(dto);
         project.UserId = userId;
 
+        if (project.Settings == null)
+            project.Settings = new ProjectSetting();
+
         var createdProject = await _projectService.CreateProjectAsync(project);
         var result = _mapper.Map<ProjectDto>(createdProject);
 
@@ -72,7 +75,16 @@ public class ProjectsController : ControllerBase
         var existing = await _projectService.GetProjectByIdAsync(id);
         if (existing == null) return NotFound();
 
-        _mapper.Map(dto, existing);
+        if (dto.Name != null) existing.Name = dto.Name;
+        if (dto.Description != null) existing.Description = dto.Description;
+
+        if (dto.Settings != null)
+        {
+            if (existing.Settings == null)
+                existing.Settings = new ProjectSetting();
+
+            _mapper.Map(dto.Settings, existing.Settings);
+        }
 
         var updated = await _projectService.UpdateProjectAsync(id, existing);
         return Ok(_mapper.Map<ProjectDto>(updated));

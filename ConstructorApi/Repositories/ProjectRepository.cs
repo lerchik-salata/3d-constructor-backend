@@ -22,6 +22,14 @@ namespace ConstructorApi.Repositories
                 .Include(p => p.Settings)
                 .ToListAsync();
         }
+
+        public async Task<Project?> GetByIdAsync(int id)
+        {
+            return await _context.Projects
+                .Include(p => p.Settings)
+                .Include(p => p.Scenes)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 
     public interface IProjectRepository : IRepository<Project>
