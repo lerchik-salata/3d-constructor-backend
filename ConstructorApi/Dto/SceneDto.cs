@@ -68,4 +68,10 @@ namespace ConstructorApi.DTOs.Scene
         public string? TextureId { get; set; }
         public string? Params { get; set; }
     }
+
+        public class SceneExportDto
+    {
+        public string SceneName { get; set; } = string.Empty;
+        public List<SceneObjectDto> Objects { get; set; } = new();
+    }
 }

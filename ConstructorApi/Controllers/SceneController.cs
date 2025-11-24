@@ -10,11 +10,13 @@ using AutoMapper;
 public class ScenesController : ControllerBase
 {
     private readonly ISceneService _sceneService;
+     private readonly ISceneExportService _sceneExportService;
     private readonly IMapper _mapper;
 
-    public ScenesController(ISceneService sceneService, IMapper mapper)
+    public ScenesController(ISceneService sceneService, ISceneExportService sceneExportService, IMapper mapper)
     {
         _sceneService = sceneService;
+        _sceneExportService = sceneExportService;   
         _mapper = mapper;
     }
 
@@ -76,5 +78,32 @@ public class ScenesController : ControllerBase
         if (!deleted) return NotFound();
 
         return NoContent();
+    }
+
+    [Authorize]
+    [HttpGet("{id}/export")]
+    public async Task<IActionResult> ExportScene(int projectId, int id)
+    {
+        var scene = await _sceneService.GetSceneByIdAsync(projectId, id);
+        if (scene == null) return NotFound();
+
+        var dto = _sceneExportService.ExportScene(scene);
+        return Ok(dto);
+    }
+
+    [Authorize]
+    [HttpPost("import")]
+    public async Task<IActionResult> ImportScene(int projectId, [FromBody] SceneExportDto dto)
+    {
+        foreach (var obj in dto.Objects)
+        {
+            obj.Params = string.IsNullOrEmpty(obj.Params) ? "{}" : obj.Params;
+        }
+
+        var scene = _mapper.Map<Scene>(dto);
+        var created = await _sceneService.CreateSceneAsync(projectId, scene);
+        if (created == null) return NotFound($"Project {projectId} not found.");
+
+        return Ok(_mapper.Map<SceneDto>(created));
     }
 }
