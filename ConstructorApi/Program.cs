@@ -69,6 +69,8 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddScoped<ISceneRepository, SceneRepository>();
 builder.Services.AddScoped<ISceneService, SceneService>();
+builder.Services.AddScoped<ICustomShapeRepository, CustomShapeRepository>();
+builder.Services.AddScoped<ShapeService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IAuthService, AuthService>();

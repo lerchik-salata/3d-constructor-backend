@@ -16,7 +16,8 @@ namespace ConstructorApi.Data
         public DbSet<Scene> Scenes { get; set; }
         public DbSet<Texture> Textures { get; set; }
         public DbSet<SceneObject> SceneObjects { get; set; }
-        public DbSet<ApplicationUser> Users { get; set; } 
+        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<CustomShape> CustomShapes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
