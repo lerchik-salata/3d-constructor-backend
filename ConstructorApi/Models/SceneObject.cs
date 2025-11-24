@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization; 
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace ConstructorApi.Models
 {
@@ -22,6 +24,18 @@ namespace ConstructorApi.Models
         public int? TextureId { get; set; }
         
         public int SceneId { get; set; }
+
+        [Column(TypeName = "jsonb")]
+        public string? Params { get; set; } = "{}";
+
+        [NotMapped]
+        public Dictionary<string, float>? ParamsDict
+        {
+            get => string.IsNullOrEmpty(Params)
+                ? null
+                : JsonSerializer.Deserialize<Dictionary<string, float>>(Params);
+            set => Params = value == null ? null : JsonSerializer.Serialize(value);
+        }
         
         [JsonIgnore] 
         public Scene? Scene { get; set; } 

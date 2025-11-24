@@ -44,6 +44,7 @@ namespace ConstructorApi.DTOs.Scene
 
         public string? Color { get; set; }
         public string? TextureId { get; set; }
+        public string? Params { get; set; }
     }
 
     public class SceneObjectDto
@@ -65,5 +66,6 @@ namespace ConstructorApi.DTOs.Scene
 
         public string? Color { get; set; }
         public string? TextureId { get; set; }
+        public string? Params { get; set; }
     }
 }
