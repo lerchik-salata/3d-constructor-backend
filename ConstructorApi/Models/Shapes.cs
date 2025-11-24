@@ -1,53 +1,70 @@
-using System;
+using System.Collections.Generic;
 
 namespace ConstructorApi.Models.Shapes
 {
-    public interface IShape
-    {
-        string Type { get; }
-        float[] DefaultDimensions { get; }
-        string DefaultColor { get; }
-    }
-
     public class Cube : IShape
     {
         public string Type => "cube";
-        public float[] DefaultDimensions => new float[] { 1f, 1f, 1f };
-        public string DefaultColor => "hotpink";
+        public Dictionary<string, float> Params => new()
+        {
+            { "width", 1f },
+            { "height", 1f },
+            { "depth", 1f }
+        };
     }
 
     public class Sphere : IShape
     {
         public string Type => "sphere";
-        public float[] DefaultDimensions => new float[] { 0.5f };
-        public string DefaultColor => "#3C78D8";
+        public Dictionary<string, float> Params => new()
+        {
+            { "radius", 0.5f }
+        };
     }
 
     public class Cylinder : IShape
     {
         public string Type => "cylinder";
-        public float[] DefaultDimensions => new float[] { 0.5f, 1f };
-        public string DefaultColor => "#6AA84F";
+        public Dictionary<string, float> Params => new()
+        {
+            { "radius", 0.5f },
+            { "height", 1f }
+        };
     }
 
     public class Cone : IShape
     {
         public string Type => "cone";
-        public float[] DefaultDimensions => new float[] { 0.5f, 1f };
-        public string DefaultColor => "#FFB347";
+        public Dictionary<string, float> Params => new()
+        {
+            { "radius", 0.5f },
+            { "height", 1f }
+        };
     }
 
     public class Torus : IShape
     {
         public string Type => "torus";
-        public float[] DefaultDimensions => new float[] { 1f, 0.4f };
-        public string DefaultColor => "#9B59B6";
+        public Dictionary<string, float> Params => new()
+        {
+            { "radius", 1f },
+            { "tube", 0.4f }
+        };
     }
 
     public class Plane : IShape
     {
         public string Type => "plane";
-        public float[] DefaultDimensions => new float[] { 2f, 2f };
-        public string DefaultColor => "#95A5A6";
+        public Dictionary<string, float> Params => new()
+        {
+            { "width", 2f },
+            { "height", 2f }
+        };
+    }
+
+    public interface IShape
+    {
+        string Type { get; }
+        Dictionary<string, float> Params { get; }
     }
 }
