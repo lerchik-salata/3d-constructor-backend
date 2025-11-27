@@ -76,8 +76,8 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
-builder.Services.AddScoped<GoogleDriveService>();
-builder.Services.AddScoped<IGoogleDriveService>(sp =>
+builder.Services.AddSingleton<GoogleDriveService>();
+builder.Services.AddSingleton<IGoogleDriveService>(sp =>
 {
     var realService = sp.GetRequiredService<GoogleDriveService>();
     return new GoogleDriveProxyService(realService);

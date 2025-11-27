@@ -38,6 +38,11 @@ namespace ConstructorApi.Data
                 .WithMany(t => t.SceneObjects)
                 .HasForeignKey(o => o.TextureId);
 
+            modelBuilder.Entity<SceneObject>()
+                .HasOne(o => o.Texture)
+                .WithMany()
+                .HasForeignKey(o => o.TextureId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
