@@ -43,7 +43,7 @@ namespace ConstructorApi.Controllers
         }
 
         [Authorize]
-        [HttpGet("me")]
+        [HttpGet("getme")]
         public async Task<IActionResult> GetCurrentUser()
         {
             var user = await _authService.GetCurrentUserAsync(User);
