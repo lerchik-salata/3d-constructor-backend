@@ -10,33 +10,7 @@ namespace ConstructorApi.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "SettingsOverride_BackgroundColor",
-                table: "Scenes");
 
-            migrationBuilder.DropColumn(
-                name: "SettingsOverride_DirectionalLightPosition",
-                table: "Scenes");
-
-            migrationBuilder.DropColumn(
-                name: "SettingsOverride_Id",
-                table: "Scenes");
-
-            migrationBuilder.DropColumn(
-                name: "SettingsOverride_LightIntensity",
-                table: "Scenes");
-
-            migrationBuilder.DropColumn(
-                name: "SettingsOverride_Preset",
-                table: "Scenes");
-
-            migrationBuilder.DropColumn(
-                name: "SettingsOverride_PresetBlur",
-                table: "Scenes");
-
-            migrationBuilder.DropColumn(
-                name: "SettingsOverride_SceneColor",
-                table: "Scenes");
         }
 
         /// <inheritdoc />
