@@ -31,7 +31,7 @@ namespace ConstructorApi.Controllers
             return Ok(new { message = "Registered" });
         }
 
-        [HttpPost("loginnnnn")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             var result = await _authService.LoginAsync(dto);
